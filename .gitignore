@@ -1,7 +1,7 @@
 __pycache__/
 *.pyc
 .cache
-/reports/html/
+
 htmlcov/
 .tox/
 .nox/
