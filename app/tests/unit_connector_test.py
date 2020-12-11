@@ -20,7 +20,7 @@ class TestBase(TestCase):
 
 class ConnectorTest(TestBase):
     def setUp(self):
-        self.connector = Connector(self.vendor, f'https://{self.vendor}.com')
+        self.connector = Connector(self.vendor)
         self.response_get = {"product":
                                 {
                                 "Id":5,
@@ -57,6 +57,12 @@ class ConnectorTest(TestBase):
         mocked_post.assert_called_with(f'https://{self.vendor}.com/cadeaus/5', 
                                         data=self.payload)
         self.assertEqual(response.status_code, 200)
+    
+    def test_init(self):
+        connector = Connector(self.vendor)
+        # print(bollie.name)
+        self.assertEqual(connector.name, self.vendor)
+        self.assertEqual(connector.url, f'https://{self.vendor}.com')
 
 
 if __name__ == '__main__':

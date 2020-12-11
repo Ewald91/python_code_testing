@@ -23,7 +23,11 @@ def main(providers, id):
     The main method collects all prices and submits an order
     for the shop with the lowest price available.
     """
-    
     prices = get_prices(providers, id)
     
     request_connector(id, min(prices, key=prices.get), req='post')
+
+# if __name__ == '__main__':
+#     print('__name__ == __main__')
+# else:
+#     print('__name__ != __main__')

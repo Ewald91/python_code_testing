@@ -48,7 +48,7 @@ class IntegrationTest(unittest.TestCase):
         
         results = main(['bollie', 'coolbere', 'aliblabla'], 5)
 
-        # print(mocked_request_connector.mock_calls)
+        print(mocked_request_connector.mock_calls)
         mocked_request_connector.assert_called_with(5, 'coolbere', req='post')
 
 if __name__ == '__main__':

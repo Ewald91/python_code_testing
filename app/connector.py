@@ -3,9 +3,9 @@ import requests
 
 class Connector:
     
-    def __init__(self, name, url):
-        self.name = name
-        self.url = url
+    def __init__(self, name):
+        self.name = name 
+        self.url = f'https://{self.name}.com' 
     
     def get(self, id):
         r = requests.get(f'{self.url}/cadeaus/{id}')
