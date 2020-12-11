@@ -8,6 +8,13 @@ This project doesn't really need to be set up since we're only demonstrating the
 
 All you need to have is Python 3.6 (or above) installed. You can check this on your machine via the commandline with `python --version`.
 
+Also to avoid import errors you need to PYTHONPATH environment variable to the `/app` folder. If you don't want to do this, then follow the (docker) instructions below.
+
+### Docker
+To use the project with just enter the root folder and run `docker-compose up`. 
+
+Your PYTHONPATH environment variable will be automatically set to the `/app` folder of the project (in the container) and needs no further manual actions. 
+
 ### App
 The app (inside the 'app' folder) contains out of 2 elements. The first is a connector class (to make http requests to another server) and the second is the logic it self. Here is determined when and where the application has to sent a request.
 
