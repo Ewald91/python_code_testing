@@ -30,3 +30,15 @@ You can execute the tests directly by python:
 
 `python tests/unit_conncetor_test.py` 
 `python tests/integration_test.py`
+
+
+### Run coverage
+To check (test)code coverage run the following commands"
+
+```
+coverage run app/tests/integration_test.py && 
+coverage html && 
+coverage run app/tests/unit_connector_test.py
+```
+
+After running the commands above all unittests will been executed and analysed by coverage.py. Also an html report will have been created and can be found in the `app/report/htmlcov` directory.

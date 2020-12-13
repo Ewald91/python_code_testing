@@ -5,7 +5,7 @@ def request_connector(shop, id, req='get'):
     """
     This method get's executed if logic states that a shop is the cheapest.
     """
-    connector = Connector(shop, f'https://{shop}.com')
+    connector = Connector(shop)
     if req == 'get':
         response = connector.get(id)
         return response.body['product']['Price']
@@ -13,7 +13,7 @@ def request_connector(shop, id, req='get'):
         connector.post(id, {"action":"order"})
         return f'Buy order has succesfully been placed at {shop}'
     else: 
-        raise TypeError("keyword argument 'req' only accepts 'get' and 'post' as its value!")
+        raise TypeError()
 
 def get_prices(providers, id):
     return {shop:request_connector(shop, id) for shop in providers}

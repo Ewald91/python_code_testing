@@ -2,10 +2,10 @@
 directory = app/reports/htmlcov/
 
 [report]
+show_missing = on
 exclude_lines =
     pragma: no cover
     if __name__ == .__main__.:
-show_missing = True
 precision = 2
 omit = 
     */tests/*
