@@ -1,5 +1,6 @@
-## Demo unittest library: testsuites, paramaterized testcases and mocks
-This project is to demonstrate a possible use and implementation of the mock method from the unittest (standard) library. It can difficult to understand how this works and how to setup different mocks. Sometimes an examples clears up more than the entire documentation.
+## Demo: Code quality by unittesting with Python(standard library) 
+### testsuites, paramaterized testcases, mocks and (test)code coverage
+The aim of this project is to demonstrate a possible (and working) use and implementation of the unittest (standard) library an. It can difficult to understand how things like mocks exactly work and how to set this up. Sometimes an examples is more clarifying than documentation.
 
 Also it demonstrates a usecase of the `unitettest.TestSuite`. This can very usefull if you'd like to test the same testcase (`unittest.TestCase`) multiple times with different input parameters. To make this possible we've setup a TestBase (class unittest.TestCase) wich can accept a parameter. Then for the actual testcase we extend this TestBase class so that we can call it with parameters.
 
@@ -14,6 +15,10 @@ Also to avoid import errors you need to PYTHONPATH environment variable to the `
 To use the project with just enter the root folder and run `docker-compose up`. 
 
 Your PYTHONPATH environment variable will be automatically set to the `/app` folder of the project (in the container) and needs no further manual actions. 
+
+
+To enter to docker container and start running (python) command enter the following command: 
+`docker exec -ti python_unittest_example_app_1 bash`
 
 ### App
 The app (inside the 'app' folder) contains out of 2 elements. The first is a connector class (to make http requests to another server) and the second is the logic it self. Here is determined when and where the application has to sent a request.
@@ -37,8 +42,8 @@ To check (test)code coverage run the following commands"
 
 ```
 coverage run app/tests/integration_test.py && 
-coverage html && 
-coverage run app/tests/unit_connector_test.py
+coverage run -a app/tests/unit_connector_test.py &&
+coverage report && coverage html
 ```
 
 After running the commands above all unittests will been executed and analysed by coverage.py. Also an html report will have been created and can be found in the `app/report/htmlcov` directory.

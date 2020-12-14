@@ -12,11 +12,13 @@ class Connector:
         if r.ok:
             return r
         else:
-            return 'Bad response!'
+            r.body('Bad response!')
+            return r
 
     def post(self, id, payload):
         r = requests.post(f'{self.url}/cadeaus/{id}', data=payload)
         if r.ok:
             return r
         else:
-            return 'Bad response!'
+            r.body('Bad response!')
+            return r

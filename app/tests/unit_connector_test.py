@@ -1,6 +1,6 @@
 from connector import Connector
 from unittest import TestCase, TestLoader, TestSuite, TextTestRunner
-from unittest.mock import patch
+from unittest.mock import patch, call
 
 
 class TestBase(TestCase):
@@ -19,6 +19,7 @@ class TestBase(TestCase):
 
 
 class ConnectorTest(TestBase):
+
     def setUp(self):
         self.connector = Connector(self.vendor)
         self.response_get = {"product":
@@ -35,11 +36,15 @@ class ConnectorTest(TestBase):
 
     @patch('connector.requests.get')
     def test_get(self, mocked_get):
+        """
+        This method covers the Connector instance making a correct get-request
+        to the correctly (concatenated string) url.
+        """
         mocked_get.return_value.status_code = 200
         mocked_get.return_value.ok = True
         mocked_get.return_value.body = self.response_get
                 
-        response = self.connector.get(5)
+        response = cls.connector.get(5)
 
         mocked_get.assert_called_with(f'https://{self.vendor}.com/cadeaus/5')
         self.assertEqual(response.ok, True)
@@ -47,8 +52,25 @@ class ConnectorTest(TestBase):
         self.assertIsNotNone(response.body)
         self.assertEqual(response.body, self.response_get)
 
+    @patch('connector.requests.get')
+    def test_get_not_ok(self, mocked_get):
+        """
+        This method covers the Connector instance making a incorrect get-request
+        that returns a corresponding message.
+        """
+        mocked_get.return_value.status_code = 400
+        mocked_get.return_value.ok = False
+                
+        response = self.connector.get(5)
+        self.assertEqual(response.ok, False)
+        self.assertIn(call.body('Bad response!'), response.mock_calls)
+
     @patch('connector.requests.post')
     def test_post(self, mocked_post):
+        """
+        This method covers the Connector instance making a correct post-request
+        to the correctly (concatenated string) url.
+        """
         mocked_post.return_value.status_code = 200
         mocked_post.return_value.ok = True
                 
@@ -57,14 +79,21 @@ class ConnectorTest(TestBase):
         mocked_post.assert_called_with(f'https://{self.vendor}.com/cadeaus/5', 
                                         data=self.payload)
         self.assertEqual(response.status_code, 200)
+
+    @patch('connector.requests.post')
+    def test_post_not_ok(self, mocked_post):
+        """
+        This method covers the Connector instance making a incorrect post-request
+        that returns a corresponding message.
+        """
+        mocked_post.return_value.status_code = 400
+        mocked_post.return_value.ok = False
+                
+        response = self.connector.post(5, self.payload)
+        self.assertEqual(response.ok, False)
+        self.assertIn(call.body('Bad response!'), response.mock_calls)
     
-    def test_init(self):
-        connector = Connector(self.vendor)
-        # print(bollie.name)
-        self.assertEqual(connector.name, self.vendor)
-        self.assertEqual(connector.url, f'https://{self.vendor}.com')
-
-
+    
 if __name__ == '__main__':
     suite = TestSuite()
     # This testcase wil get executed multiple times for different inputs

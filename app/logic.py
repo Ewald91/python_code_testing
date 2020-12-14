@@ -16,7 +16,7 @@ def request_connector(shop, id, req='get'):
         raise TypeError()
 
 def get_prices(providers, id):
-    return {shop:request_connector(shop, id) for shop in providers}
+    return {shop:request_connector(shop, id) for shop in providers} #no cover
 
 def main(providers, id):
     """
