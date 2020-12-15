@@ -4,6 +4,7 @@ from unittest.mock import patch, call
 
 
 class TestBase(TestCase):
+
     def __init__(self, methodName='runTest', param=None):
         super(TestBase, self).__init__(methodName)
         self.vendor = param
@@ -44,7 +45,7 @@ class ConnectorTest(TestBase):
         mocked_get.return_value.ok = True
         mocked_get.return_value.body = self.response_get
                 
-        response = cls.connector.get(5)
+        response = self.connector.get(5)
 
         mocked_get.assert_called_with(f'https://{self.vendor}.com/cadeaus/5')
         self.assertEqual(response.ok, True)
@@ -93,6 +94,23 @@ class ConnectorTest(TestBase):
         self.assertEqual(response.ok, False)
         self.assertIn(call.body('Bad response!'), response.mock_calls)
     
+
+class AnotherTestCase(TestBase):
+
+    def setUp(self):
+        pass
+
+    def test_1(self):
+        """
+        This method (is going to) show and prove that....
+        """
+        pass
+
+    def test_2(self):
+        """
+        This method (is going to) show and prove that....
+        """
+        pass
     
 if __name__ == '__main__':
     suite = TestSuite()
