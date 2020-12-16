@@ -1,15 +1,8 @@
-## Demo: Code quality by unittesting with Python(standard library) 
+## Demo: Code quality by unittesting with Python
 ### testsuites, paramaterized testcases, mocks and (test)code coverage
-The aim of this project is to demonstrate a possible (and working) use and implementation of the unittest (standard) library an. It can difficult to understand how things like mocks exactly work and how to set this up. Sometimes an examples is more clarifying than documentation.
+The aim of this project is to demonstrate a possible (and working) use and implementation of the unittest (standard) library. It can difficult to understand how things like mocks exactly work and how to set it up. Sometimes an examples is more clarifying than documentation.
 
 Also it demonstrates a usecase of the `unitettest.TestSuite`. This can very usefull if you'd like to test the same testcase (`unittest.TestCase`) multiple times with different input parameters. To make this possible we've setup a TestBase (class unittest.TestCase) wich can accept a parameter. Then for the actual testcase we extend this TestBase class so that we can call it with parameters.
-
-### Setup
-This project doesn't really need to be set up since we're only demonstrating the use of the unittes standard library. So there is no
-
-All you need to have is Python 3.6 (or above) installed. You can check this on your machine via the commandline with `python --version`.
-
-Also to avoid import errors you need to PYTHONPATH environment variable to the `/app` folder. If you don't want to do this, then follow the (docker) instructions below.
 
 ### Docker
 To use the project with just enter the root folder and run `docker-compose up`. 
@@ -21,14 +14,15 @@ To enter to docker container and start running (python) command enter the follow
 `docker exec -ti python_unittest_example_app_1 bash`
 
 ### App
-The app (inside the 'app' folder) contains out of 2 elements. The first is a connector class (to make http requests to another server) and the second is the logic it self. Here is determined when and where the application has to sent a request.
+The app (inside the 'app' folder) contains 2 elements. The first is the connector (to make http requests to another server) and the second is the logic. Here is determined when and where the application has to sent a request.
 
-The application will lookup the same product at several (provided) shops and determine wich shop offers the lowest price. When it found the cheapest shop it will submit an order (by post request).
+#### Workflow
+The application will lookup the same product at several shops and determine wich shop offers the product for the lowest price. When it found that shop it will submit an order (by post request).
 
 note: The url-structure and product-id is the same for each shop.
 
 ### Test strategy
-To provide full (code)coverage for this application we not only needed to provide unittests for the connector, but also a test that covere the logic.py (main file). This where we draw the line and no longer call it a 'unittest', since the `main()` hit many different 'units'. Therefor we call this an integration (or component) test, that checks (eventhough mocked) that the units interact correctly as expected.
+To provide full (testcode)coverage for this application we not only needed to provide **unittests for the connector**, but also a test that covere the logic.py. This where we draw the line and no longer call it a 'unittest', since the `main()` hits different 'units'. Therefor we call this an **integration test**, that checks that the units interact correctly as expected.
 
 ### Run tests
 You can execute the tests directly by python:
