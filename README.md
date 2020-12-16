@@ -1,4 +1,4 @@
-## Demo: Code quality by unittesting with Python
+## Code quality-control with Python
 ### testsuites, paramaterized testcases, mocks and (test)code coverage
 The aim of this project is to demonstrate a possible (and working) use and implementation of the unittest (standard) library. It can difficult to understand how things like mocks exactly work and how to set it up. Sometimes an examples is more clarifying than documentation.
 
