@@ -44,7 +44,7 @@ class ConnectorTest(TestBase):
         mocked_get.return_value.ok = True
         mocked_get.return_value.body = self.response_get
                 
-        response = cls.connector.get(5)
+        response = self.connector.get(5)
 
         mocked_get.assert_called_with(f'https://{self.vendor}.com/cadeaus/5')
         self.assertEqual(response.ok, True)
