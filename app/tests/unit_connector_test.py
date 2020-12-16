@@ -100,6 +100,9 @@ class AnotherTestCase(TestBase):
     def setUp(self):
         pass
 
+    def tearDown(self):
+        pass
+
     def test_1(self):
         """
         This method (is going to) show and prove that....

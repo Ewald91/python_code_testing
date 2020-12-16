@@ -1,4 +1,8 @@
 import requests
+import logging
+from app import logger
+
+logger = logging.getLogger('logger')
 
 
 class Connector:
@@ -13,12 +17,15 @@ class Connector:
             return r
         else:
             r.body('Bad response!')
+            logger.warning(f'GET request  (to {self.url}/cadeaus/{id}) not succesful')
             return r
 
     def post(self, id, payload):
         r = requests.post(f'{self.url}/cadeaus/{id}', data=payload)
         if r.ok:
+            logger.info(f'POST request (for {self.name}) succesfully made')
             return r
         else:
             r.body('Bad response!')
+            logger.warning(f'POST request  (to {self.url}/cadeaus/{id}) not succesful')
             return r

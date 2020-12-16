@@ -1,23 +1,9 @@
 from connector import Connector
 from unittest import mock
 import logging
-from datetime import datetime
+from app import logger
 
-logger = logging.getLogger() #provide '__name__' to getLogger for only logs from this module
-logger.setLevel(logging.DEBUG)
-
-formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(funcName)s:%(message)s')
-
-now = datetime.now()
-file_handler = logging.FileHandler(f'logs/{now.strftime("%Y%m%d")}logic.log')
-file_handler.setLevel(logging.WARNING)
-file_handler.setFormatter(formatter)
-
-stream_handler = logging.StreamHandler()
-stream_handler.setFormatter(formatter)
-
-logger.addHandler(file_handler)
-logger.addHandler(stream_handler)
+logger = logging.getLogger('logger')
 
 def request_connector(shop, id, req='get'):
     """
@@ -35,14 +21,13 @@ def request_connector(shop, id, req='get'):
     else: 
         raise TypeError()
 
-def get_prices(providers, id):
-    prices = {}
-    for shop in providers:
-        prices[shop] = request_connector(shop, id)
-        logger.info(f'called request_connector get-method')
-    # print(prices)
-    return prices
-    # return {shop:request_connector(shop, id) for shop in providers} #no cover
+def get_prices(providers, id): 
+    """
+    This method has been created so that we can mock it inside the 
+    unittests. This dictionary comprehension could also been used as 
+    a variable within the main() method, but than it can't be mocked.
+    """
+    return {shop:request_connector(shop, id) for shop in providers} #no cover
 
 def main(providers, id):
     """
@@ -51,9 +36,6 @@ def main(providers, id):
     """
     prices = get_prices(providers, id)
     request_connector(id, min(prices, key=prices.get), req='post')
-    
-    # logging.DEBUG(f'order place by POST-resquest for {min(prices, key=prices.get)}')
-
 
 if __name__ == '__main__':
     main(['bollie', 'coolbere', 'aliblabla'], 5)
