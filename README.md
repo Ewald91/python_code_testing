@@ -1,17 +1,23 @@
-## Code quality-control with Python
-### testsuites, paramaterized testcases, mocks and (test)code coverage
-The aim of this project is to demonstrate a possible (and working) use and implementation of the unittest (standard) library. It can difficult to understand how things like mocks exactly work and how to set it up. Sometimes an examples is more clarifying than documentation.
+# Quality control- and assurance on Python code
+In this project we'll show examples of components that make a great 
 
-Also it demonstrates a usecase of the `unitettest.TestSuite`. This can very usefull if you'd like to test the same testcase (`unittest.TestCase`) multiple times with different input parameters. To make this possible we've setup a TestBase (class unittest.TestCase) wich can accept a parameter. Then for the actual testcase we extend this TestBase class so that we can call it with parameters.
+This project demos following component:
+- unittests
+- integrationtests
+- mocks
+- coverage
+- linting (static code analysis)
 
-### Docker
+
+## Target/demo application
+
+### Installation - Docker
 To use the project with just enter the root folder and run `docker-compose up`. 
 
-Your PYTHONPATH environment variable will be automatically set to the `/app` folder of the project (in the container) and needs no further manual actions. 
-
+Inside the containe app-container the PYTHONPATH will get set to the `/app` folder of the project and needs no further manual actions. 
 
 To enter to docker container and start running (python) command enter the following command: 
-`docker exec -ti python_unittest_example_app_1 bash`
+`docker exec -ti python_code_testing_app_1 bash`
 
 ### App
 The app (inside the 'app' folder) contains 2 elements. The first is the connector (to make http requests to another server) and the second is the logic. Here is determined when and where the application has to sent a request.
@@ -24,15 +30,20 @@ note: The url-structure and product-id is the same for each shop.
 ### Test strategy
 To provide full (testcode)coverage for this application we not only needed to provide **unittests for the connector**, but also a test that covere the logic.py. This where we draw the line and no longer call it a 'unittest', since the `main()` hits different 'units'. Therefor we call this an **integration test**, that checks that the units interact correctly as expected.
 
-### Run tests
+### Unittests
 You can execute the tests directly by python:
 
 `python tests/unit_conncetor_test.py` 
+
+
+### Integrationtests
+You can execute the tests directly by python:
+
 `python tests/integration_test.py`
 
 
-### Run coverage
-To check (test)code coverage run the following commands"
+### Coverage
+To check (test)code coverage run the following command(s)"
 
 ```
 coverage run app/tests/integration_test.py && 
