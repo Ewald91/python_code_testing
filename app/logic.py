@@ -1,9 +1,16 @@
 from connector import Connector
 from unittest import mock
 import logging
-from app import logger
+import logger
 
-logger = logging.getLogger('logger')
+logger = logging.getLogger(__name__)
+# formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(funcName)s:%(message)s')
+# file_handler = logging.FileHandler(f'logs/app/{now.strftime("%d%m%Y")}logic.log')
+# file_handler.setLevel(logging.DEBUG)
+# file_handler.setFormatter(formatter)
+
+# logger.addHandler(file_handler)
+
 
 def request_connector(shop, id, req='get'):
     """

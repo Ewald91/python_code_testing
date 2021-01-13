@@ -3,6 +3,7 @@ import logic
 from connector import Connector
 from unittest.mock import patch
 import unittest
+from datetime import datetime
 
 
 class IntegrationTest(unittest.TestCase):
@@ -29,7 +30,15 @@ class IntegrationTest(unittest.TestCase):
         mocked_post.return_value.status_code = 200
         mocked_post.return_value.ok = True
 
-        response = request_connector('coolbere', 5, req='post')
+        with self.assertLogs() as logs:
+            response = request_connector('coolbere', 5, req='post')
+        self.assertEqual(len(logs.records),2)
+        self.assertEqual(logs.output, 
+        ['INFO:connector:POST request (for coolbere) succesfully made', 
+        'INFO:logic:performed POST-request to coolbere'])
+        self.assertEqual(logs.records[0].getMessage(),"POST request (for coolbere) succesfully made")
+        # print(logs.output)
+        # print(logs.records)
 
         mocked_post.assert_called_with('https://coolbere.com/cadeaus/5', 
                                         data={'action': 'order'})
@@ -59,7 +68,9 @@ class IntegrationTest(unittest.TestCase):
         """
         mocked_prices.return_value = {'bollie':12.34, 'coolbere':2.34, 'aliblabla':34.56}
         
+
         results = main(['bollie', 'coolbere', 'aliblabla'], 5)
+
 
         mocked_request_connector.assert_called_with(5, 'coolbere', req='post')
     
@@ -70,6 +81,6 @@ class IntegrationTest(unittest.TestCase):
         """
         with self.assertRaises(TypeError):
             request_connector('myShop', 1, req='unknowValue')
-
+               
 if __name__ == '__main__':
     unittest.main()
