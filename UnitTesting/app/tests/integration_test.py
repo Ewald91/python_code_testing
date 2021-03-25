@@ -37,8 +37,9 @@ class IntegrationTest(unittest.TestCase):
         ['INFO:connector:POST request (for coolbere) succesfully made', 
         'INFO:logic:performed POST-request to coolbere'])
         self.assertEqual(logs.records[0].getMessage(),"POST request (for coolbere) succesfully made")
-        # print(logs.output)
-        # print(logs.records)
+        
+        print(f'logs.output: {logs.output}')
+        print(f'logs.records: {logs.records}')
 
         mocked_post.assert_called_with('https://coolbere.com/cadeaus/5', 
                                         data={'action': 'order'})

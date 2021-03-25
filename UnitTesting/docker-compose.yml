@@ -6,8 +6,6 @@ services:
     build: app
     command: >
       bash -c "
-        python app/tests/unit_connector_test.py &&
-        python app/tests/integration_test.py &&
         tail -F anything
         "
     ports:

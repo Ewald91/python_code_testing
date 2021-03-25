@@ -45,10 +45,12 @@ You can execute the tests directly by python:
 ### Coverage
 To check (test)code coverage run the following command(s)"
 
-```
-coverage run app/tests/integration_test.py && 
-coverage run -a app/tests/unit_connector_test.py &&
-coverage html
-```
+`coverage run app/tests/integration_test.py && coverage run -a app/tests/unit_connector_test.py && coverage html`
 
 After running the commands above all unittests will been executed and analysed by coverage.py. Also an html report will have been created and can be found in the `app/report/htmlcov` directory.
+
+
+### mutation testing (using mutpy)
+`mut.py -t connector -u tests/unit_connector_test.py -m -c`
+`mut.py -t logic -u tests/integration_test.py -m -c`
+
